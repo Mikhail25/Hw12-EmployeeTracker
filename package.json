@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.0.0",
+    "mysql2": "^2.3.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "hw12-employeetracker",
+  "description": "",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mikhail25/Hw12-EmployeeTracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mikhail25/Hw12-EmployeeTracker/issues"
+  },
+  "homepage": "https://github.com/Mikhail25/Hw12-EmployeeTracker#readme"
+}
