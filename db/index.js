@@ -31,7 +31,28 @@ class DB{
         VALUES (?)`;
 
         return this.connection.promise().query(sql, params);
-        }
+    }
+
+    createRole(params){
+        const sql = `INSERT INTO role (title, salary, department_id)
+        VALUES (?,?,?)`;
+        //console.log(params);
+
+        return this.connection.promise().query(sql, [params.title, params.salary, params.department_id]);
+    }
+
+    createEmployee(params) {
+        const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+        VALUES (?,?,?,?)`;
+        //console.log(params);
+        return this,connection.promise().query(sql, [params.first_name, params.last_name, params.department_id, params.manager_id]);
+    }
+
+    changeRole(params) {
+        const sql = `Update employee 
+        SET role_id VALUES (?)
+        WHERE id = VALUES (?)`
+    }
 }
 
 module.exports = new DB(connection);
