@@ -91,11 +91,16 @@ function addDepartment(){
     },
   ])
   .then((prompt) => {
-    DB.insertDepartment(prompt.name);
-  }).then(callback => {
-    console.log('Added '+ prompt.name+ 'to the database');
-  }).then(() => {
-    menuPrompt();
+      DB.insertDepartment(prompt.name)
+      .then((response) => {
+        if (response){
+          console.log("Added new Department");
+        }else{
+          console.log("Coudn't add Department");
+        }
+      }).then(() => {
+      menuPrompt();
+    });
   });
 }
 
