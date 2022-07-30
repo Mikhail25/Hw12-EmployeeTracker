@@ -45,13 +45,19 @@ class DB{
         const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
         VALUES (?,?,?,?)`;
         //console.log(params);
-        return this,connection.promise().query(sql, [params.first_name, params.last_name, params.department_id, params.manager_id]);
+        return this.connection.promise().query(sql, [params.first_name, params.last_name, params.department_id, params.manager_id]);
     }
 
     changeRole(params) {
-        const sql = `Update employee 
-        SET role_id VALUES (?)
-        WHERE id = VALUES (?)`
+        const role_id = params.role_id;
+        const id = params.employee_id;
+
+        const sql = `UPDATE employee 
+        SET role_id = ?
+        WHERE id = ?`;
+
+        //console.log(params);
+        return this.connection.promise().query(sql, [role_id, id]);
     }
 }
 

@@ -29,7 +29,7 @@ function menuPrompt(){
           addEmployee();
           break;
         case "Update Employee Role":
-
+          updateEmployeeRole();
           break;
         case "View All Roles":
           viewRoles();
@@ -94,6 +94,8 @@ function addDepartment(){
     DB.insertDepartment(prompt.name);
   }).then(callback => {
     console.log('Added '+ prompt.name+ 'to the database');
+  }).then(() => {
+    menuPrompt();
   });
 }
 
@@ -133,6 +135,9 @@ function addRole(){
             console.log('Role error');
           }
     
+        }).then(() => {
+          menuPrompt();
+
         }).catch((error) => {
             console.log(error);
         });
@@ -208,7 +213,51 @@ function addEmployee(){
 }
 
 function updateEmployeeRole(){
-  
+  DB.findAllRoles().then(([rows]) =>{
+    let roles = rows;
+
+    const roleChoices = roles.map(({id, title}) => { 
+      let name = title;
+      return {name, value: id}
+    });
+
+    DB.findAllEmployees().then(([rows]) =>{
+      let employee = rows;
+
+      const employeeChoices = employee.map(({id, first_name, last_name}) =>{
+        let name = first_name+" "+last_name;
+        return {name, value: id}
+      });
+
+      inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'employee_id',
+          message: "Which employee's role do you want to update?",
+          choices: employeeChoices,
+        },
+        {
+          type: 'list',
+          name: 'role_id',
+          message: "Which role do you want to assign the selected employee?",
+          choices: roleChoices,
+        },
+      ]).then((prompt) => {
+          DB.changeRole(prompt)
+            .then(roleChange => {
+
+            if(roleChange){
+              console.log('Role succesfully changed!');
+            }else{
+              console.log('Unable to change role');
+            }
+          }).then(() => {
+            menuPrompt();
+        });
+      });
+    });
+  });
 }
 
 menuPrompt();
